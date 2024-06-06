@@ -3,30 +3,16 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha_hash = $_POST['senha'] === "" ? null : md5($_POST['senha']);
+    $id = $_POST['id'];
+    $ramo = $_POST['ramo'];
+    $titulo = $_POST['titulo'];
+    $descricao = $_POST['descricao'];
+    $experiencia = $_POST['experiencia'];
+    $salario_min = $_POST['salario_min'];
+    $salario_max = $_POST['salario_max'] === "" ? null : (int)$_POST['salario_max'];
+    $ativo = $_POST['ativo'] === 'true' ? true : false;
     $competencias = array();
-    $experiencias = array();
     $token = $_SESSION['token'];
-
-    if (isset($_POST['nome_empresa'])) {
-        for ($i = 0; $i < count($_POST['nome_empresa']); $i++) {
-            if (isset($_POST['id_Xp'][$i])) {
-                $idXp = $_POST['id_Xp'][$i];
-            } else {
-                $idXp = null;
-            }
-            $experiencia = array(
-                'id' => $idXp,
-                'nome_empresa' => $_POST['nome_empresa'][$i],
-                'inicio' => $_POST['inicio'][$i],
-                'fim' => $_POST['fim'][$i],
-                'cargo' => $_POST['cargo'][$i]
-            );
-            array_push($experiencias, $experiencia);
-        }
-    }
 
     function getNomeCompetencia($id)
     {
@@ -54,16 +40,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $data = array(
-        'nome' => $nome,
-        'email' => $email,
-        'senha' => $senha_hash,
+        'id' => (int)$id,
+        'ramo_id' => (int)$ramo,
+        'titulo' => $titulo,
+        'descricao' => $descricao,
         'competencias' => $competencias,
-        'experiencia' => $experiencias
+        'experiencia' => (int)$experiencia,
+        'salario_min' => (int)$salario_min,
+        'salario_max' => $salario_max,
+        'ativo' => $ativo
     );
 
     //echo json_encode($data);
 
-    $url = $_SESSION['serverIP'] . "/usuario";
+    $url = $_SESSION['serverIP'] . "/vagas" . "/" . $id;
 
     $options = array(
         'http' => array(
@@ -87,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultado = json_decode($response, true);
 
         if (isset($resultado['mensagem'])) {
-            echo '<script>alert("' . $resultado['mensagem'] . '"); window.location.href = "ler_controller.php";</script>';
+            echo '<script>alert("' . $resultado['mensagem'] . '"); window.location.href = "../view/vagas.php";</script>';
             exit();
         } else {
             echo "Erro: resposta inválida";

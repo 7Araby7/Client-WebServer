@@ -13,7 +13,8 @@ if (isset($_POST['delete'])) {
             'method'  => 'DELETE',
             'header'  => "Content-Type: application/json\r\n" .
                 "Authorization: Bearer $token\r\n",
-            'content' => $data
+            'content' => $data,
+            'ignore_errors' => true
         )
     );
 
@@ -22,15 +23,8 @@ if (isset($_POST['delete'])) {
     $response = @file_get_contents($url, false, $context);
 
     if ($response === false) {
-
-        $http_status = $http_response_header[0];
-        if (strpos($http_status, '401 Unauthorized') !== false) {
-            $_SESSION['mensagem_erro'] = 'Token não encontrado';
-            $_SESSION['erro'] = true;
-        } else {
             $_SESSION['mensagem_erro'] = 'Falha na requisição ao servidor';
             $_SESSION['erro'] = true;
-        }
     } else {
 
         $_SESSION = array();
@@ -40,7 +34,6 @@ if (isset($_POST['delete'])) {
         exit();
     }
 } else {
-
     $_SESSION['mensagem_erro'] = 'Token não fornecido';
     $_SESSION['erro'] = true;
 }

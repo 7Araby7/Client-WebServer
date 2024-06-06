@@ -71,12 +71,13 @@ input[type="email"],
 input[type="password"],
 input[type="month"],
 input[type="date"],
+input[type="number"],
 textarea,
 select,
 button {
     width: 100%;
     padding: 12px;
-    margin-bottom: 20px;
+    margin-top: 15px;
     border: none;
     border-radius: 4px;
     box-sizing: border-box;
@@ -87,6 +88,7 @@ input[type="email"],
 input[type="password"],
 input[type="month"],
 input[type="date"],
+input[type="number"],
 textarea,
 select {
     background-color: #f2f2f2;
@@ -99,6 +101,10 @@ button {
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+input[type="radio"] {
+    margin-bottom: 20px;
 }
 
 p {
@@ -122,4 +128,66 @@ a:hover {
     text-decoration: none;
     background-color: #0056b3;
 
+}
+
+
+/* Estilo para listas */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px 3px rgba(1, 0, 0, 0.2);
+}
+
+ul li.ativo:hover {
+    background-color: #a6ff9a;
+}
+
+ul li.inativo:hover {
+    background-color: #ff9a9a;
+}
+
+ul li h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+ul li p {
+    margin: 5px 0;
+    color: #666;
+}
+
+ul li strong {
+    color: #333;
+}
+
+ul ul {
+    padding-left: 20px;
+}
+
+ul ul li {
+    background-color: rgb(179, 190, 186);
+}
+
+ul ul li:hover {
+    background-color: white;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.ramo{
+    border: 1px solid black;
 }

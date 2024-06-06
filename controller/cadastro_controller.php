@@ -22,7 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'http' => array(
                 'method' => 'POST',
                 'header' => 'Content-type: application/json',
-                'content' => $data
+                'content' => $data,
+                'ignore_errors' => true
             )
         );
 
@@ -42,21 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Erro: resposta inválida";
             }
         } else {
-            $http_status = $http_response_header[0];
-            if (strpos($http_status, '422 Unprocessable Content') !== false) {
-                $_SESSION['mensagem_erro'] = 'E-mail já cadastrado';
-                $_SESSION['erro'] = true;
-                header("Location: ../view/cadastro.php");
-                exit();
-            }else {
-                $_SESSION['mensagem_erro'] = 'Falha na requisição ao servidor';
-                $_SESSION['erro'] = true;
-                header("Location: ../view/cadastro.php");
-                exit();
-            }
+            $_SESSION['mensagem_erro'] = 'Falha na requisição ao servidor';
+            $_SESSION['erro'] = true;
+            header("Location: ../view/cadastro.php");
+            exit();
         }
     } else {
         echo "Todos os campos devem ser preenchidos";
     }
 }
-?>

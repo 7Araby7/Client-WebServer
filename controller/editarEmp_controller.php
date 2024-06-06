@@ -5,16 +5,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nome = $_POST['nome'];
     $email = $_POST['email'];
-    $senha = $_POST['senha'];
+    $senha_hash = $_POST['senha'] === "" ? null : md5($_POST['senha']);
     $ramo = $_POST['ramo'];
     $descricao = $_POST['descricao'];
     $token = $_SESSION['token'];
-
-    if($_POST['senha'] === ""){
-        $senha_hash = null;
-    }else{
-        $senha_hash = md5($senha);
-    }
 
     $data = array(
         'nome' => $nome,
@@ -33,7 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'method' => 'PUT',
             'header'  => "Content-Type: application/json\r\n" .
                 "Authorization: Bearer $token\r\n",
-            'content' => json_encode($data)
+            'content' => json_encode($data),
+            'ignore_errors' => true
         )
     );
 
@@ -49,23 +44,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultado = json_decode($response, true);
 
         if (isset($resultado['mensagem'])) {
-            echo '<script>alert("' . $resultado['mensagem'] . '"); window.location.href = "../view/perfil.php";</script>';
+            echo '<script>alert("' . $resultado['mensagem'] . '"); window.location.href = "ler_controller.php";</script>';
             exit();
         } else {
             echo "Erro: resposta inválida";
         }
     } else {
-        $http_status = $http_response_header[0];
-        if (strpos($http_status, '401 Unauthorized') !== false) {
-            $_SESSION['mensagem_erro'] = 'E-mail já cadastrado';
-            $_SESSION['erro'] = true;
-            header("Location: ../view/editarEmp.php");
-            exit();
-        } else {
-            $_SESSION['mensagem_erro'] = 'Falha na requisição ao servidor';
-            $_SESSION['erro'] = true;
-            header("Location: ../view/editarEmp.php");
-            exit();
-        }
-    } 
+        $_SESSION['mensagem_erro'] = 'Falha na requisição ao servidor';
+        $_SESSION['erro'] = true;
+        header("Location: ../view/editarEmp.php");
+        exit();
+    }
 }

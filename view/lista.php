@@ -26,7 +26,7 @@ if (!isset($_SESSION['token'])) {
 
         <h3>Competências:</h3>
         <ul>
-            <?php foreach ($_SESSION['competencias'] as $competencia): ?>
+            <?php foreach ($_SESSION['competenciasCand'] as $competencia): ?>
                 <li>
                     ID: <?php echo $competencia['id']; ?><br>
                     Nome: <?php echo $competencia['nome']; ?>

@@ -19,14 +19,17 @@ if (!isset($_SESSION['token'])) {
     <div class="container">
         <div class="profile">
             <img src="../css/profile.png" alt="Foto de Perfil">
-            <form action="../controller/ler_controller.php" method="POST">
-                <input type="hidden" name="pagina" value="lista">
+            <form action="<?php if($_SESSION['tipo'] == 'empresa'){echo "listaEmp.php";}else{echo "lista.php";}?>" method="GET">
                 <button type="submit">Informações do Usuario</button>
             </form>
-            <form action="../controller/ler_controller.php" method="POST">
-                <input type="hidden" name="pagina" value="editar">
+            <form action="<?php if($_SESSION['tipo'] == 'empresa'){echo "editarEmp.php";}else{echo "editar.php";}?>" method="GET">
                 <button type="submit">Editar Usuario</button>
             </form>
+            <?php if($_SESSION['tipo'] == 'empresa'): ?>
+                <form action="../controller/lerRamo_controller.php" method="GET">
+                    <button type="submit">Vagas</button>
+                </form>
+            <?php endif; ?>
             <form action="../controller/logout_controller.php" method="POST">
                 <input type="hidden" name="logout" value="<?php echo $_SESSION['token']; ?>">
                 <button type="submit" onclick="return confirm('Tem certeza que deseja sair?')">SAIR</button>

@@ -40,7 +40,7 @@ if (!isset($_SESSION['serverIP'])) {
     <input type="password" name="senha" placeholder="Senha" minlength="8">
     <h3>Competências</h3>
     <div id="competencias">
-        <?php foreach ($_SESSION['competencias'] as $index => $competencia) : ?>
+        <?php foreach ($_SESSION['competenciasCand'] as $index => $competencia) : ?>
             <hr>
             <div id="comp-<?php echo $index; ?>">
                 <select name="competencias[]">
@@ -80,6 +80,12 @@ if (!isset($_SESSION['serverIP'])) {
             div.appendChild(hr);
             var select = document.createElement("select");
             select.name = "competencias[]";
+            var option = document.createElement("option");
+            option.value = "";
+            option.text = "Selecione uma competência";
+            option.selected = true;
+            option.disabled = true;
+            select.appendChild(option);
             <?php foreach ($_SESSION['competenciasLista'] as $comp) : ?>
                 var option = document.createElement("option");
                 option.value = "<?php echo $comp['id']; ?>";

@@ -1,16 +1,19 @@
 <?php
 session_start();
 
-if (isset($_POST['logout'])) {
-    $token = $_POST['logout'];
+if (isset($_POST['id'])) {
 
-    $url = $_SESSION['serverIP'] . "/logout";
+
+    $id = $_POST['id'];
+    $token = $_SESSION['token'];
+
+    $url = $_SESSION['serverIP'] . "/vagas". "/" . $id;
 
     $data = json_encode(array());
 
     $options = array(
         'http' => array(
-            'method'  => 'POST',
+            'method'  => 'DELETE',
             'header'  => "Content-Type: application/json\r\n" .
                 "Authorization: Bearer $token\r\n",
             'content' => $data,
@@ -26,15 +29,12 @@ if (isset($_POST['logout'])) {
             $_SESSION['mensagem_erro'] = 'Falha na requisição ao servidor';
             $_SESSION['erro'] = true;
     } else {
-
-        $_SESSION = array();
-        session_destroy();
         $resultado = json_decode($response, true);
-        echo '<script>alert("' . $resultado['mensagem'] . '"); window.location.href = "../index.php";</script>';
+        echo '<script>alert("' . $resultado['mensagem'] . '"); window.location.href = "../view/vagas.php";</script>';
         exit();
     }
 } else {
-    $_SESSION['mensagem_erro'] = 'Token não fornecido';
+    $_SESSION['mensagem_erro'] = 'Id não fornecido';
     $_SESSION['erro'] = true;
 }
 
