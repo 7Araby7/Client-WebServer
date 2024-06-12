@@ -58,17 +58,17 @@ if ($resultado === null) {
     exit();
 }
 
-if (isset($resultado->mensagem)) {
-    $_SESSION['erro'] = true;
-    $_SESSION['mensagem_erro'] = $resultado->mensagem;
-    header("Location: ../view/login.php");
-    exit();
-} elseif (isset($resultado->token)) {
-
+if (isset($resultado->token)) {
     $_SESSION['token'] = $resultado->token;
     echo $_SESSION['token'];
     header("Location: ler_controller.php");
     exit();
+} elseif (isset($resultado->mensagem)) {
+    $_SESSION['erro'] = true;
+    $_SESSION['mensagem_erro'] = $resultado->mensagem;
+    header("Location: ../view/login.php");
+    exit();
+
 } else {
 
     $_SESSION['erro'] = true;

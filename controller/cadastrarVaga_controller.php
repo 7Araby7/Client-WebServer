@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         for ($i = 0; $i < count($_POST['competencias']); $i++) {
             $nomeComp = getNomeCompetencia($_POST['competencias'][$i]);
             $competencia = array(
-                'id' => $_POST['competencias'][$i],
+                'id' => (int)$_POST['competencias'][$i],
                 'nome' =>  $nomeComp
             );
             array_push($competencias, $competencia);

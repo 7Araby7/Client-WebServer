@@ -29,23 +29,23 @@ if (!isset($_SESSION['serverIP'])) {
     <?php $_SESSION['erro'] = false;
                 endif ?>
     </p>
-    <input type="hidden" name="id" value="<?php echo $_SESSION['vaga']['id'] ?>">
+    <input type="hidden" name="id" value="<?php echo $_SESSION['vagasLista']['id'] ?>">
     <h3>Ramo</h3>
     <hr>
     <select name="ramo">
         <?php foreach ($_SESSION['ramosLista'] as $ramo) : ?>
-            <option value="<?php echo $ramo['id']; ?>" <?php echo ($_SESSION['vaga']['ramo']['id'] == $ramo['id']) ? 'selected' : ''; ?>><?php echo $ramo['nome']; ?></option>
+            <option value="<?php echo $ramo['id']; ?>" <?php echo ($_SESSION['vagasLista']['ramo']['id'] == $ramo['id']) ? 'selected' : ''; ?>><?php echo $ramo['nome']; ?></option>
         <?php endforeach; ?>
     </select>
     <h3>Título</h3>
     <hr>
-    <input type="text" name="titulo" placeholder="Título" value="<?php echo $_SESSION['vaga']['titulo'] ?>" required>
+    <input type="text" name="titulo" placeholder="Título" value="<?php echo $_SESSION['vagasLista']['titulo'] ?>" required>
     <h3>Descrição</h3>
     <hr>
-    <textarea name="descricao" placeholder="Descrição da vaga" minlength="10" rows="4" required><?php echo $_SESSION['vaga']['descricao'] ?></textarea>
+    <textarea name="descricao" placeholder="Descrição da vaga" minlength="10" rows="4" required><?php echo $_SESSION['vagasLista']['descricao'] ?></textarea>
     <h3>Competências</h3>
     <div id="competencias">
-        <?php foreach ($_SESSION['vaga']['competencias'] as $index => $competencia) : ?>
+        <?php foreach ($_SESSION['vagasLista']['competencias'] as $index => $competencia) : ?>
             <hr>
             <div id="comp-<?php echo $index; ?>">
                 <select name="competencias[]">
@@ -60,18 +60,18 @@ if (!isset($_SESSION['serverIP'])) {
     <button type="button" onclick="addCompetencia()">Adicionar Nova Competência</button>
     <h3>Experiência na área</h3>
     <hr>
-    <input type="number" name="experiencia" placeholder="Mínimo de anos de experiência na área" value="<?php echo $_SESSION['vaga']['experiencia'] ?>" required>
+    <input type="number" name="experiencia" placeholder="Mínimo de anos de experiência na área" value="<?php echo $_SESSION['vagasLista']['experiencia'] ?>" required>
     <h3>Salário mínimo</h3>
     <hr>
-    <input type="number" name="salario_min" placeholder="Salario mínimo" step="any" value="<?php echo $_SESSION['vaga']['salario_min'] ?>" required>
+    <input type="number" name="salario_min" placeholder="Salario mínimo" step="any" value="<?php echo $_SESSION['vagasLista']['salario_min'] ?>" required>
     <h3>Salário máximo</h3>
     <hr>
-    <input type="number" name="salario_max" placeholder="Salario máximo" step="any" value="<?php echo $_SESSION['vaga']['salario_max'] ?>">
+    <input type="number" name="salario_max" placeholder="Salario máximo" step="any" value="<?php echo $_SESSION['vagasLista']['salario_max'] ?>">
     <h3>Status da vaga</h3>
     <hr>
-    <input type="radio" id="true" name="ativo" value="true" <?php echo ($_SESSION['vaga']['ativo'] === true) ? 'checked' : ''; ?>>
+    <input type="radio" id="true" name="ativo" value="true" <?php echo ($_SESSION['vagasLista']['ativo'] === true) ? 'checked' : ''; ?>>
     <label for="true">Ativa</label><br>
-    <input type="radio" id="false" name="ativo" value="false" <?php echo ($_SESSION['vaga']['ativo'] === false) ? 'checked' : ''; ?>>
+    <input type="radio" id="false" name="ativo" value="false" <?php echo ($_SESSION['vagasLista']['ativo'] === false) ? 'checked' : ''; ?>>
     <label for="false">Inativa</label><br>
 
     <button type="submit">Editar</button>
