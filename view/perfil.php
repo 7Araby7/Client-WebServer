@@ -18,7 +18,9 @@ if (!isset($_SESSION['token'])) {
 <body>
     <div class="container">
         <div class="profile">
-            <img src="../css/profile.png" alt="Foto de Perfil">
+            <div class="wrapper">
+                <img src="../css/profile3.png" alt="Foto de Perfil" class="pedro">
+            </div>
             <form action="<?php if($_SESSION['tipo'] == 'empresa'){echo "listaEmp.php";}else{echo "lista.php";}?>" method="GET">
                 <button type="submit">Informações do Usuario</button>
             </form>
@@ -28,6 +30,13 @@ if (!isset($_SESSION['token'])) {
             <?php if($_SESSION['tipo'] == 'empresa'): ?>
                 <form action="../controller/lerRamo_controller.php" method="GET">
                     <button type="submit">Vagas</button>
+                </form>
+            <?php else: ?>
+                <form action="../controller/lerVagas_controller.php" method="GET">
+                    <button type="submit">Visualiza vagas</button>
+                </form>
+                <form action="lerMensagem.php" method="GET">
+                    <button type="submit" class="<?php echo $_SESSION['novaMensagem']; ?>">Ver mensagens</button>
                 </form>
             <?php endif; ?>
             <form action="../controller/logout_controller.php" method="POST">

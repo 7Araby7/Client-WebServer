@@ -4,6 +4,7 @@ if (!isset($_SESSION['serverIP'])) {
     header("Location: ../index.php");
     exit();
 }
+$empresa = $_SESSION['empresa'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,19 +33,19 @@ if (!isset($_SESSION['serverIP'])) {
     </p>
     <h3>Nome</h3>
     <hr>
-    <input type="text" name="nome" placeholder="Nome da Empresa" value="<?php echo $_SESSION['nome_empresa']; ?>" required>
+    <input type="text" name="nome" placeholder="Nome da Empresa" value="<?php echo $empresa['nome']; ?>" required>
     <h3>Email</h3>
     <hr>
-    <input type="email" name="email" placeholder="Email" value="<?php echo $_SESSION['email_empresa']; ?>" required>
+    <input type="email" name="email" placeholder="Email" value="<?php echo $empresa['email']; ?>" required>
     <h3>Senha</h3>
     <hr>
     <input type="password" name="senha" placeholder="Senha" minlength="8">
     <h3>Ramo</h3>
     <hr>
-    <input type="text" name="ramo" placeholder="Ramo de Atuação" value="<?php echo $_SESSION['ramo']; ?>" minlength="3" required>
+    <input type="text" name="ramo" placeholder="Ramo de Atuação" value="<?php echo $empresa['ramo']; ?>" minlength="3" required>
     <h3>Descrição</h3>
     <hr>
-    <textarea name="descricao" placeholder="Descrição da Empresa" minlength="10" rows="4" required><?php echo $_SESSION['descricao']; ?></textarea>
+    <textarea name="descricao" placeholder="Descrição da Empresa" minlength="10" rows="4" required><?php echo $empresa['descricao']; ?></textarea>
     <button type="submit">Alterar</button>
         </form>
     </div>

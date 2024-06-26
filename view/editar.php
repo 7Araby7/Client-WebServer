@@ -4,6 +4,7 @@ if (!isset($_SESSION['serverIP'])) {
     header("Location: ../index.php");
     exit();
 }
+$candidato = $_SESSION['candidatos'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -31,16 +32,16 @@ if (!isset($_SESSION['serverIP'])) {
     </p>
     <h3>Nome</h3>
     <hr>
-    <input type="text" name="nome" placeholder="Nome" value="<?php echo $_SESSION['nome']; ?>" required>
+    <input type="text" name="nome" placeholder="Nome" value="<?php echo $candidato['nome']; ?>" required>
     <h3>Email</h3>
     <hr>
-    <input type="email" name="email" placeholder="Email" value="<?php echo $_SESSION['email']; ?>" required>
+    <input type="email" name="email" placeholder="Email" value="<?php echo $candidato['email']; ?>" required>
     <h3>Senha</h3>
     <hr>
     <input type="password" name="senha" placeholder="Senha" minlength="8">
     <h3>Competências</h3>
     <div id="competencias">
-        <?php foreach ($_SESSION['competenciasCand'] as $index => $competencia) : ?>
+        <?php foreach ($candidato['competencias'] as $index => $competencia) : ?>
             <hr>
             <div id="comp-<?php echo $index; ?>">
                 <select name="competencias[]">
@@ -56,7 +57,7 @@ if (!isset($_SESSION['serverIP'])) {
 
     <h3>Experiências</h3>
     <div id="experiencias">
-        <?php foreach ($_SESSION['experiencia'] as $index => $experiencia) : ?>
+        <?php foreach ($candidato['experiencia'] as $index => $experiencia) : ?>
             <div id="xp-<?php echo $index; ?>">
                 <hr>
                 <input type="hidden" name="id_Xp[]" value="<?php echo $experiencia['id']; ?>">

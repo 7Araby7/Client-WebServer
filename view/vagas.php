@@ -18,7 +18,9 @@ if (!isset($_SESSION['token'])) {
 <body>
     <div class="container">
         <div class="profile">
-            <img src="../css/profile.png" alt="Foto de Perfil">
+            <div class="wrapper">
+                <img src="../css/profile3.png" alt="Foto de Perfil" class="pedro">
+            </div>
             <form action="perfil.php" method="GET">
                 <button type="submit">Perfil</button>
             </form>

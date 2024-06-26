@@ -16,6 +16,9 @@
             <input type="text" id="ip" name="ip" required>
             <button type="submit">Conectar</button>
         </form>
+        <a href="logados.php">
+        <button>Usuarios logados</button>
+    </a>
     </div>
 </body>
 

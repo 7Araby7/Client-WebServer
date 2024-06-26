@@ -28,7 +28,7 @@ $vagas = $_SESSION['vagasLista'];
 
 <body>
     <div class="container">
-        <h2>Lista de Vagas<?php echo $_SESSION['nome_empresa']; ?></h2>
+        <h2>Lista de Vagas <?php if($_SESSION['tipo'] == "empresa"){echo $_SESSION['empresa']['nome'];}else{echo "Disponíveis";} ?></h2>
         <?php if (!empty($vagas)) : ?>
             <ul>
                 <?php
@@ -59,14 +59,23 @@ $vagas = $_SESSION['vagasLista'];
                                 <li>ID: <?php echo $competencia['id']; ?> - <?php echo htmlspecialchars($competencia['nome']); ?></li>
                             <?php endforeach; ?>
                         </ul>
-                        <form action="../controller/buscarVaga_controller.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo $vaga['id']; ?>">
-                            <button id="vagas" type="submit">Editar Vaga</button>
-                        </form>
-                        <form action="../controller/deleteVaga_controller.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo $vaga['id']; ?>">
-                            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir sua esta?\n\tEssa ação não é reversível')">Excluir vaga</button>
-                        </form>
+                        <?php if($_SESSION['tipo'] == 'empresa'): ?>
+                            <form action="../controller/buscarVaga_controller.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $vaga['id']; ?>">
+                                <button id="vagas" type="submit">Editar Vaga</button>
+                            </form>
+                            <form action="../controller/deleteVaga_controller.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $vaga['id']; ?>">
+                                <button type="submit" onclick="return confirm('Tem certeza que deseja excluir sua esta?\n\tEssa ação não é reversível')">Excluir vaga</button>
+                            </form>
+                            <form action="../controller/buscarCandidato_controller.php" method="POST">
+                                <?php foreach ($vaga['competencias'] as $competencia) : ?>
+                                    <input type="hidden" name="competencias[]" value="<?php echo $competencia['id']; ?>">
+                                <?php endforeach; ?>
+                                <button id="vagas" type="submit">Buscar candidatos qualificados</button>
+                            </form>
+
+                        <?php endif; ?>
                     </li>
                     <hr>
                 <?php endforeach; ?>
@@ -74,7 +83,7 @@ $vagas = $_SESSION['vagasLista'];
         <?php else : ?>
             <p>Nenhuma vaga encontrada.</p>
         <?php endif; ?>
-        <form action="vagas.php" method="GET">
+        <form action="<?php if($_SESSION['tipo'] == "empresa"){echo "vagas.php";}else{echo "perfil.php";} ?>" method="GET">
             <button type="submit">Voltar</button>
         </form>
     </div>

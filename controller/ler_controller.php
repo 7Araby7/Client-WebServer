@@ -87,19 +87,14 @@ if ($dados_usuario === null) {
 
 if ($dados_usuario['tipo'] === 'empresa') {
 
-    $_SESSION['nome_empresa'] = $dados_usuario['nome'];
-    $_SESSION['email_empresa'] = $dados_usuario['email'];
-    $_SESSION['ramo'] = $dados_usuario['ramo'];
-    $_SESSION['descricao'] = $dados_usuario['descricao'];
+    $_SESSION['empresa'] = $dados_usuario;
     $_SESSION['tipo'] = $dados_usuario['tipo'];
     header("Location: ../view/perfil.php");
     exit();
 } else {
-    $_SESSION['nome'] = $dados_usuario['nome'];
-    $_SESSION['email'] = $dados_usuario['email'];
+
+    $_SESSION['candidatos'] = $dados_usuario;
     $_SESSION['tipo'] = $dados_usuario['tipo'];
-    $_SESSION['competenciasCand'] = $dados_usuario['competencias'];
-    $_SESSION['experiencia'] = $dados_usuario['experiencia'];
-    header("Location: ../view/perfil.php");
+    header("Location: lerMensagem_controller.php");
     exit();
 }
